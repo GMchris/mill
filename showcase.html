@@ -4,16 +4,135 @@
     <meta charset="UTF-8">
     <title>Mill.js</title>
     <script src="mill.js"></script>
+	<style>
+        html, body {
+            height: 100%;
+            margin: 0px;
+			color: darkslategrey;
+			font-family: Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100%;
+        }
+
+        html {
+            background-color: #C9EADF;
+        }
+
+        h1 {
+            margin: 0px;
+            padding: 15px 10px;
+        }
+
+        #content {
+            padding: 10px;
+            box-sizing: border-box;
+            position: relative;
+            width: 750px;
+            margin: auto;
+            background-color: #ebfef4;
+            box-shadow: 0px 0px 10px rgba(5, 47, 27, 0.3);
+        }
+
+        p {
+            padding: 10px;
+        }
+
+        p.code {
+            background-color: #ffffff;
+            border-radius: 10px;
+            border: 2px solid darkslategrey;
+        }
+
+        .square {
+            width: 60px;
+            height: 60px;
+            display: inline-block;
+			background-color: darkslategrey;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        .dot {
+            width: 15px;
+            height: 15px;
+			display: inline-block;
+            background-color: white;
+            border-radius: 50%;
+            margin: 2px;
+        }
+	</style>
 </head>
 <body>
-    <div id="fill-me-up"></div>
+    <div id="content">
+		<h1>mill.js demonstration</h1>
+        <p>
+            mill.js uses the same syntax as the Emmet/Zen coding IDE plugin, which in turn has borrowed it
+            from CSS selectors. This makes it very widespread, so chances are you already know how to use it.
+            For instance, the below div was created using the command:
+        </p>
+
+        <p class="code">
+            mill('div.square');
+        </p>
+
+        <div id="exampleOne"></div>
+
+        <p>
+            It also supports ids and attributes (both with value and without). Inspect the element, and check it out.
+        </p>
+
+        <p class="code">
+            mill('div.square#user[data-user-id="1"]');
+        </p>
+
+        <div id="exampleTwo"></div>
+
+        <p>
+            Of course there's also multiplication, using the * operator followed by a number. This will create several
+            elements, with identical values. But what about ids? Well the way mill works is that if an element has an id
+            but also need to be created multiple times, each element will have a different id in the format of (id)-(number).
+        </p>
+
+        <p class="code">
+			mill('div.square#user*5');
+        </p>
+
+		<div id="exampleThree"></div>
+
+		<p>
+			You can use the '>' operator, which indicates a direct descendant in CSS, to nest elements.
+		</p>
+
+		<p class="code">
+			mill('div.square>div.dot*5');
+		</p>
+
+		<div id="exampleFour"></div>
+
+        <p>
+            The mill method always returns an array of DOM elements, or an empty one if the command cannot
+            be deciphered at all. Commands shouldn't contain spaces. Mill has no dependencies, and can very rapidly
+            produce huge amounts of HTML elements.
+        </p>
+
+    </div>
 </body>
 <script>
-    var element = document.getElementById('fill-me-up');
-    var children = mill('div#number*5>span.info+div[data-approved].approved');
+    var exampleOneContainer = document.getElementById('exampleOne');
+    exampleOneContainer.appendChild(mill('div.square')[0]);
 
-    for (var i= 0; i < children.length; i++) {
-        element.appendChild(children[i]);
+	var exampleTwoContainer = document.getElementById('exampleTwo');
+	exampleTwoContainer.appendChild(mill('div.square#user[data-user-id="1"]')[0]);
+
+    var exampleThreeContainer = document.getElementById('exampleThree');
+    var exampleThreeChildren = mill('div.square#user*5');
+	for (var i= 0; i < exampleThreeChildren.length; i++) {
+		exampleThreeContainer.appendChild(exampleThreeChildren[i]);
     }
+
+	var exampleFourContainer = document.getElementById('exampleFour');
+	exampleFourContainer.appendChild(mill('div.square>div.dot*5')[0]);
 </script>
 </html>
