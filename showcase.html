@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mill.js</title>
+    <script src="mill.js"></script>
+</head>
+<body>
+    <div id="fill-me-up"></div>
+</body>
+<script>
+    var element = document.getElementById('fill-me-up');
+    var children = mill('div#number*5>span.info+div[data-approved].approved');
+
+    for (var i= 0; i < children.length; i++) {
+        element.appendChild(children[i]);
+    }
+</script>
+</html>
