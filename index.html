@@ -17,7 +17,7 @@
         }
 
         html {
-            background-color: #C9EADF;
+            background-color: #acc8c9;
         }
 
         h1 {
@@ -31,7 +31,7 @@
             position: relative;
             width: 750px;
             margin: auto;
-            background-color: #ebfef4;
+            background-color: #ffffff;
             box-shadow: 0px 0px 10px rgba(5, 47, 27, 0.3);
         }
 
@@ -42,25 +42,31 @@
         p.code {
             background-color: #ffffff;
             border-radius: 10px;
-            border: 2px solid darkslategrey;
+            box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.3) inset;
         }
 
         .square {
             width: 60px;
             height: 60px;
             display: inline-block;
-			background-color: darkslategrey;
-            border-radius: 5px;
+			background: linear-gradient(#3d665f, darkslategray);
+            box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.6);
+            border-radius: 4px;
             margin: 5px;
         }
 
         .dot {
-            width: 15px;
-            height: 15px;
+            width: 20px;
+            height: 20px;
 			display: inline-block;
-            background-color: white;
+            background:  linear-gradient(#9abdd3, #e2f3f1);
             border-radius: 50%;
-            margin: 2px;
+            margin: 4px 5px;
+            box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.6) inset;
+        }
+
+        .container {
+            text-align: center;
         }
 	</style>
 </head>
@@ -77,7 +83,7 @@
             mill('div.square');
         </p>
 
-        <div id="exampleOne"></div>
+        <div class="container" id="exampleOne"></div>
 
         <p>
             It also supports ids and attributes (both with value and without). Inspect the element, and check it out.
@@ -87,7 +93,7 @@
             mill('div.square#user[data-user-id="1"]');
         </p>
 
-        <div id="exampleTwo"></div>
+        <div class="container" id="exampleTwo"></div>
 
         <p>
             Of course there's also multiplication, using the * operator followed by a number. This will create several
@@ -99,20 +105,21 @@
 			mill('div.square#user*5');
         </p>
 
-		<div id="exampleThree"></div>
+		<div class="container" id="exampleThree"></div>
 
 		<p>
 			You can use the '>' operator, which indicates a direct descendant in CSS, to nest elements.
 		</p>
 
 		<p class="code">
-			mill('div.square>div.dot*5');
+			mill('div.square*5>div.dot*4');
 		</p>
 
-		<div id="exampleFour"></div>
+		<div class="container" id="exampleFour"></div>
 
         <p>
-            The mill method always returns an array of DOM elements, or an empty one if the command cannot
+            The mill method always returns an array of HTML elements, which can directly be passed to jQuery, or
+            iterated over to attach it to the DOM. The array will be empty if the command cannot
             be deciphered at all. Commands shouldn't contain spaces. Mill has no dependencies, and can very rapidly
             produce huge amounts of HTML elements.
         </p>
@@ -133,6 +140,10 @@
     }
 
 	var exampleFourContainer = document.getElementById('exampleFour');
-	exampleFourContainer.appendChild(mill('div.square>div.dot*5')[0]);
+	var exampleFourChildren = mill('div.square*5>div.dot*4');
+
+    for (var j= 0; j < exampleFourChildren.length; j++) {
+        exampleFourContainer.appendChild(exampleFourChildren[j]);
+    }
 </script>
 </html>

@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Mill takes a single string argument, which it then transforms into DOM elements, and returns an array.
  * There are rules to the input string, which are identical to the rules that the Emmet/ZenCoding plugin sets.
@@ -24,7 +26,7 @@ function mill(command) {
             // Creates siblings through the '+' modifier.
             var siblings = command.split(/\+(.+)?/);
             for (var sibIdx = 0, siblingArr; sibIdx < siblings.length; sibIdx++) {
-                siblingArr = arguments.callee(siblings[sibIdx]);
+                siblingArr = mill(siblings[sibIdx]);
                 elements = elements.concat(siblingArr);
             }
             return elements;
@@ -75,7 +77,7 @@ function mill(command) {
         // Handles nested elements through the '>' modifier.
         var children = branch[1];
         if (children) {
-            var childrenElements = arguments.callee(children);
+            var childrenElements = mill(children);
             for (var elIdx= 0; elIdx < elements.length; elIdx++) {
                 for (var childIdx= 0, newEl; childIdx < childrenElements.length; childIdx++) {
                     newEl = childrenElements[childIdx].cloneNode(true);
