@@ -1,0 +1,23 @@
+{
+  "name": "milljs",
+  "version": "1.0.0",
+  "description": "A fast DOM-generator, which uses familiar CSS syntax.",
+  "main": "mill.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GMchris/mill.git"
+  },
+  "keywords": [
+    "DOM",
+    "JavaScript"
+  ],
+  "author": "Kristian Ignatov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GMchris/mill/issues"
+  },
+  "homepage": "https://github.com/GMchris/mill#readme"
+}
